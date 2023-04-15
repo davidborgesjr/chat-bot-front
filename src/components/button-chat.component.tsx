@@ -1,14 +1,16 @@
-import { Button } from '@mui/material';
+import { Button } from "@mui/material";
+import { IMessage } from "../model/message.interface";
 
-export default function ButtonChat(
-    {
-        children: content = '',
-        isSender = false,
-    }
+interface IButtonChatProps {
+  message: IMessage;
+}
 
-){
-    const userTypeColor = isSender ? 'primary' : 'success';
-    return (
-        <Button variant="contained" color={userTypeColor}>{content}</Button>
-    )
+export default function ButtonChat(params: IButtonChatProps) {
+  const { message } = params;
+  const userTypeColor = message.isSender ? "primary" : "success";
+  return (
+    <Button variant="contained" color={userTypeColor}>
+      {message.content}
+    </Button>
+  );
 }

@@ -1,3 +1,4 @@
+import { ConversationService } from "./services/conversation.service";
 import { MessagesService } from "./services/messages.service";
 import React, { ReactNode } from "react";
 
@@ -7,6 +8,7 @@ interface Props {
 
 const services = {
   messageService: new MessagesService(),
+  conversationService: new ConversationService(),
 };
 
 const AppContext = React.createContext({services});

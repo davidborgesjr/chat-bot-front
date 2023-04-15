@@ -1,30 +1,25 @@
 import { Box, Button, FormControl, Input, InputLabel } from "@mui/material";
 import { ALIGN_TO_THE_LEFT, ALIGN_TO_THE_RIGHT } from "../consts/style-consts";
 import SendIcon from "@mui/icons-material/Send";
-import { useState, useContext } from "react";
-import { AppContext } from "../app.context";
-import { IMessage } from "../model/message.interface";
+import { useState } from "react";
 
-export default function InputMessage() {
+interface IInputMessageProps {
+  handleOnClickSendMsg: Function;
+}
+
+export default function InputMessage(params: IInputMessageProps) {
+  const { handleOnClickSendMsg } = params;
+ 
   const [inputMsgField, setInputMsgField] = useState("");
-  const {
-    services: { messageService },
-  } = useContext(AppContext);
-
+  
   function handleInputMsgField(inputContent: string) {
     setInputMsgField(inputContent);
   }
 
   function onClickBtnSend() {
-    const { conversation, position} = messageService.getLastMessage()
-    const message: IMessage = {
-        content: inputMsgField,
-        conversation,
-        date: new Date().toString(),
-        isSenderMessage: true,
-        position: position+1,
+    if(handleOnClickSendMsg){
+      handleOnClickSendMsg(inputMsgField);
     }
-    messageService.addNewMessage(message);
   }
 
   return (
